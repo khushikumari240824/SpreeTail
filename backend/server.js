@@ -76,7 +76,16 @@ io.on('connection', (socket) => {
   });
 });
 
+// Initialize database tables then start server
+import db from './config/db.js';
+
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-});
+db.initDb()
+  .then(() => {
+    server.listen(PORT, () => {
+      console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Failed to initialize database, server not started:', err);
+  });
