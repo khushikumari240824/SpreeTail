@@ -1,0 +1,56 @@
+Implementation Plan: Splitwise Clone Development Workflow
+This document outlines the systematic, step-by-step workflow we will follow to build the Splitwise clone as a collaborative team. As per the assignment guidelines, the AI will act as a junior engineer, asking clarifying questions to let the user (the product manager/lead engineer) define the product scope, architecture, and technology stack.
+
+User Review Required
+IMPORTANT
+
+The assignment guidelines prohibit the AI from assuming requirements or recommending technical solutions outright. The user must define these solutions. We will use a structured interview phase to align on all architectural and product details before writing code.
+
+Proposed Collaboration Workflow
+Phase 1: Interactive Requirements Interview
+We will conduct an interactive interview covering 24 distinct topics required by the assignment guidelines. To avoid overwhelming the user, we will divide the interview into three logical groups:
+
+Group A: Product Scope & UX (Goals, Workflows, Personas, MVP/Out-of-Scope, UI Screens, Routing)
+Group B: Core Business Logic (Groups, Expenses, Settlements, Balance Calculation, Authentication)
+Group C: Architecture & Tech Stack (Frontend/Backend frameworks, Database selection, API Design, Deployment, Testing, Trade-offs/Risks)
+Phase 2: Documenting Context and Plan
+Once the interview is complete, we will create the two required core documentation files in the root workspace directory:
+
+[AI_CONTEXT.md](file:///c:/Users/ASUS/OneDrive/Desktop/web/spreetail/AI_CONTEXT.md): The project source of truth, containing database schemas, API contracts, frontend structures, and technical trade-offs.
+[BUILD_PLAN.md](file:///c:/Users/ASUS/OneDrive/Desktop/web/spreetail/BUILD_PLAN.md): The development timeline, task breakdown, and details on how we reverse-engineered Splitwise.
+
+Phase 3: Setup & Database Initialization
+Initialize the code repository.
+Setup the relational database (e.g., PostgreSQL, SQLite, or MySQL depending on the interview decisions).
+Implement the initial database migrations.
+
+Phase 4: Core Backend & API Development
+Implement user authentication.
+Build APIs for Group Management (create, add/remove/invite users).
+Build APIs for Expense Management (add/edit/delete, support equal, unequal, percentage, and share splits).
+Implement the Balance Calculation Engine to summarize group-wise and individual balances.
+Build API/Websocket endpoints for the real-time expense chat feature.
+
+Phase 5: Frontend Development (Premium Design)
+Design a premium UI incorporating the requirements of modern visual aesthetics:
+Clean typography (Google Fonts)
+Curved harmonious color palettes (no default colors)
+Micro-animations, responsive layout, glassmorphism, and clear split visualizations.
+Build views:
+Login/Register
+Dashboard (Balances summary: "You owe", "You are owed")
+Group Management (Create group, member list, activity stream)
+Expense Creation (With dynamic split calculators)
+Expense Detail Screen (Including the real-time Chat room)
+Debt Settlement Panel
+
+Phase 6: Testing, Deployment & Deliverables
+Deploy the frontend and backend to public hosting platforms.
+Perform end-to-end user flow tests.
+Complete the project [README.md](file:///c:/Users/ASUS/OneDrive/Desktop/web/spreetail/README.md).
+Verification Plan
+Automated Tests
+Run backend unit tests for splitting logic, balance calculations, and database integrations.
+Manual Verification
+Verify the real-time chat updates on multiple browser windows.
+Perform validation checks on various division scenarios (unequal splits, fractional pennies handling).
