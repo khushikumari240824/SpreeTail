@@ -4,6 +4,7 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import db from './config/db.js';
 
 // Import Routes (Placeholders)
 import authRoutes from './routes/authRoutes.js';
@@ -61,23 +62,34 @@ io.on('connection', (socket) => {
   });
 
   // Handle outgoing messages
-  socket.on('chatMessage', (data) => {
-    // Broadcast message to everyone else in the room
-    const { expenseId, user, message, createdAt } = data;
-    io.to(`expense_${expenseId}`).emit('message', {
-      user,
-      message,
-      createdAt
-    });
+  socket.on('chatMessage', async (data) => {
+    const { expenseId, user, message } = data;
+    try {
+      // Save message to database
+      const dbResult = await db.query(
+        'INSERT INTO chat_messages (expense_id, user_id, message) VALUES ($1, $2, $3) RETURNING *',
+        [expenseId, user.id, message]
+      );
+      const savedMsg = dbResult.rows[0];
+
+      // Broadcast message to everyone in the room (including sender if using standard socket flow, or everyone else)
+      io.to(`expense_${expenseId}`).emit('message', {
+        id: savedMsg.id,
+        expense_id: expenseId,
+        user_id: user.id,
+        user_name: user.name,
+        message: savedMsg.message,
+        created_at: savedMsg.created_at
+      });
+    } catch (err) {
+      console.error('Error saving chat message to database:', err);
+    }
   });
 
   socket.on('disconnect', () => {
     console.log(`User disconnected: ${socket.id}`);
   });
 });
-
-// Initialize database tables then start server
-import db from './config/db.js';
 
 const PORT = process.env.PORT || 5000;
 db.initDb()
@@ -89,3 +101,4 @@ db.initDb()
   .catch((err) => {
     console.error('Failed to initialize database, server not started:', err);
   });
+
