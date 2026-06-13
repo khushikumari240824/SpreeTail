@@ -326,10 +326,20 @@ a:hover {
   text-decoration: none;
   position: relative;
 }
+.nav-link svg {
+  transition: transform var(--transition), color var(--transition);
+}
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.05);
   color: #fff;
   text-decoration: none;
+}
+.nav-link:hover svg {
+  transform: scale(1.12) rotate(-5deg);
+  color: #818cf8;
+}
+.nav-link.active svg {
+  color: #818cf8;
 }
 .nav-link.active {
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
@@ -803,6 +813,26 @@ a:hover {
 }
 .balance-card.total-owe { border-left-color: var(--amber-500); }
 .balance-card.total-owed { border-left-color: var(--emerald-500); }
+.balance-card::before {
+  content: '';
+  position: absolute;
+  top: -20px; right: -20px;
+  width: 100px; height: 100px;
+  background: radial-gradient(circle, var(--indigo-glow) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+.balance-card.total-owe::before {
+  background: radial-gradient(circle, var(--amber-glow) 0%, transparent 70%);
+}
+.balance-card.total-owed::before {
+  background: radial-gradient(circle, var(--emerald-glow) 0%, transparent 70%);
+}
+.balance-card:hover::before {
+  transform: scale(1.4) translate(-10px, 10px);
+}
 
 .card-icon {
   width: 48px; height: 48px;
