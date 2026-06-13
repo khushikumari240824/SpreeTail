@@ -686,6 +686,37 @@ a:hover {
   position: relative; overflow: hidden;
 }
 
+/* Floating Theme Switcher on Login/Register */
+.public-theme-toggle {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-sm);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-primary);
+  z-index: 10;
+  transition: all var(--transition);
+}
+.public-theme-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--indigo-400);
+  color: var(--indigo-500);
+  box-shadow: var(--shadow-md);
+}
+.public-theme-toggle:active {
+  transform: translateY(0) scale(1);
+}
+
 /* Background floating glow circles for Login/Register */
 .auth-glow-circle {
   position: absolute;

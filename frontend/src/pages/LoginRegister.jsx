@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { PiggyBank, Mail, Lock, User, AlertCircle, ArrowRight } from 'lucide-react';
+import { PiggyBank, Mail, Lock, User, AlertCircle, ArrowRight, Sun, Moon } from 'lucide-react';
 
 const LoginRegister = () => {
-  const { login, register, error, setError } = useAuth();
+  const { login, register, error, setError, isDark, toggleTheme } = useAuth();
   const navigate = useNavigate();
   
   const [isLogin, setIsLogin] = useState(true);
@@ -63,6 +63,16 @@ const LoginRegister = () => {
 
   return (
     <div className="auth-container">
+      {/* Floating Theme Switcher */}
+      <button 
+        className="public-theme-toggle" 
+        onClick={toggleTheme}
+        aria-label="Toggle Theme"
+        type="button"
+      >
+        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
+
       <div className="auth-glow-circle circle-1"></div>
       <div className="auth-glow-circle circle-2"></div>
       <div className="auth-glow-circle circle-3"></div>

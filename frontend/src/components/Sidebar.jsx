@@ -16,23 +16,9 @@ import {
 } from 'lucide-react';
 
 const Sidebar = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, isDark, toggleTheme } = useAuth();
   const navigate = useNavigate();
-  const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('st_theme') === 'dark' || 
-      (!localStorage.getItem('st_theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  });
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('st_theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('st_theme', 'light');
-    }
-  }, [isDark]);
 
   const handleLogout = async () => {
     await logout();
@@ -86,7 +72,7 @@ const Sidebar = () => {
           {/* Theme Switcher */}
           <button 
             className="theme-toggle" 
-            onClick={() => setIsDark(!isDark)}
+            onClick={toggleTheme}
             aria-label="Toggle Theme"
           >
             {isDark ? (

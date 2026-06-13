@@ -8,6 +8,22 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isDark, setIsDark] = useState(() => {
+    return localStorage.getItem('st_theme') === 'dark' || 
+      (!localStorage.getItem('st_theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('st_theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('st_theme', 'light');
+    }
+  }, [isDark]);
+
+  const toggleTheme = () => setIsDark(!isDark);
 
   // Check if user is logged in on mount
   useEffect(() => {
@@ -67,7 +83,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, error, login, register, logout, setError }}>
+    <AuthContext.Provider value={{ user, loading, error, login, register, logout, setError, isDark, toggleTheme }}>
       {children}
     </AuthContext.Provider>
   );
