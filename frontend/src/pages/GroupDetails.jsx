@@ -16,7 +16,7 @@ import {
   DollarSign, 
   Receipt,
   MessageSquare,
-  FileText
+  X
 } from 'lucide-react';
 
 const GroupDetails = () => {
