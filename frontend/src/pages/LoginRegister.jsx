@@ -63,6 +63,9 @@ const LoginRegister = () => {
 
   return (
     <div className="auth-container">
+      <div className="auth-glow-circle circle-1"></div>
+      <div className="auth-glow-circle circle-2"></div>
+      <div className="auth-glow-circle circle-3"></div>
       <div className="auth-card glass">
         <div className="auth-header">
           <div className="auth-logo">
