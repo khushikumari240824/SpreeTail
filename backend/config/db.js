@@ -11,11 +11,11 @@ const { Pool } = pg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: isProduction ? { rejectUnauthorized: false } : false
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 pool.on('connect', () => {
@@ -31,7 +31,9 @@ export const initDb = async () => {
   try {
     const schemaPath = path.join(__dirname, 'schema.sql');
     const sql = fs.readFileSync(schemaPath, 'utf8');
+
     await pool.query(sql);
+
     console.log('Database tables initialized/verified successfully.');
   } catch (error) {
     console.error('Error initializing database tables:', error);
